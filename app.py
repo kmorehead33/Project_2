@@ -1,5 +1,5 @@
 import os
-import pandas as import pd
+import pandas as pd
 import numpy as np 
 import pymongo
 from flask import Flask, render_template, jsonify
@@ -15,7 +15,10 @@ collection = db.stats
 @app.route("/")
 def index():
     """Return the homepage."""
-    return render_template("index.html")
+    inventory = list(db.collection.find())
+    print(inventory)
+
+    return render_template("index.html", inventory=inventory)
 
 
 if __name__ == "__main__":
