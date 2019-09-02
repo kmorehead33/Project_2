@@ -16,7 +16,8 @@ collection = db.stats
 def index():
     """Return the homepage."""
     inventory = list(db.collection.find())
-    print(inventory)
+    for team in inventory:
+        print(team)
 
     return render_template("index.html", inventory=inventory)
 
