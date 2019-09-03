@@ -15,12 +15,14 @@ collection = db.stats
 @app.route("/")
 def index():
     """Return the homepage."""
-    inventory = list(db.collection.find())
-    for team in inventory:
-        print(team)
 
-    return render_template("index.html", inventory=inventory)
+    return render_template("index.html")
 
+@app.route("/data")
+def names():
+    for team in collection:
+        print('{0} {1}'.format(team['year'], 
+            team['team']))
 
 if __name__ == "__main__":
     app.run(debug=True)
