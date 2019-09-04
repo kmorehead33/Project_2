@@ -9,9 +9,6 @@ app = Flask(__name__)
 conn = "mongodb://localhost:27017"
 client = pymongo.MongoClient(conn)
 
-db = client.baseball_db
-collection = db.stats
-
 @app.route("/")
 def index():
     """Return the homepage."""
@@ -20,9 +17,15 @@ def index():
 
 @app.route("/data")
 def names():
-    for team in collection:
-        print('{0} {1}'.format(team['year'], 
-            team['team']))
+    db = client.baseball_db
+    collection = db.stats
+    cursor = collection.find({})
+    teams = []
+    for team in cursor:
+        newTeam = {'year': team['year'], 'team':team['team'], 'wins':team['wins'], 'losses':team['losses'], 'championship': team['championship'], 'attendance': team['attendance'], 'salary':team['salary']}
+        teams.append(newTeam)
+    cursor.close()
+    return jsonify(teams)
 
 if __name__ == "__main__":
     app.run(debug=True)
