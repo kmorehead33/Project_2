@@ -2,6 +2,7 @@ import os
 import pandas as pd
 import numpy as np 
 import pymongo
+from pymongo import MongoClient
 from flask import Flask, render_template, jsonify
 
 app = Flask(__name__)
@@ -18,11 +19,13 @@ def index():
 
     return render_template("index.html")
 
-@app.route("/data")
-def names():
-    for team in collection:
-        print('{0} {1}'.format(team['year'], 
-            team['team']))
+@app.route("/teams")
+def teams():
+    data = {}
+    teams = collection.find({})
+    for team in teams:
+        data.append(team)
+    return jsonify(data)
 
 if __name__ == "__main__":
     app.run(debug=True)
