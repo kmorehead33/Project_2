@@ -19,13 +19,17 @@ def index():
 
     return render_template("index.html")
 
-@app.route("/teams")
-def teams():
-    data = {}
-    teams = collection.find({})
-    for team in teams:
-        data.append(team)
-    return jsonify(data)
+@app.route("/data")
+def names():
+    db = client.baseball_db
+    collection = db.stats
+    cursor = collection.find({})
+    teams = []
+    for team in cursor:
+        newTeam = {'year': team['year'], 'team':team['team'], 'wins':team['wins'], 'losses':team['losses'], 'championship': team['championship'], 'attendance': team['attendance'], 'salary':team['salary']}
+        teams.append(newTeam)
+    cursor.close()
+    return jsonify(teams)
 
 if __name__ == "__main__":
     app.run(debug=True)
