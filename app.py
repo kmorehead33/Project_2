@@ -59,14 +59,15 @@ def teams(team):
 def teams_year(team, year):
     db = client.baseball_db
     collection = db.stats
-    team_cursor = collection.find({"team": team, "year": int(year)})
+    team_cursor = collection.find({"team": team})
     team_dict = []
-    for team in team_cursor:
-        selected_team = {'year': team['year'], 'team':team['team'], 'wins':team['wins'], 'losses':team['losses'], 'championship': team['championship'], 'attendance': team['attendance'], 'salary':team['salary']}
-        team_dict.append(selected_team)
+    for teamRow in team_cursor:
+        if (int(year) == teamRow['year']):
+            selected_team = {'year': teamRow['year'], 'team':teamRow['team'], 'wins':teamRow['wins'], 'losses':teamRow['losses'], 'championship': teamRow['championship'], 'attendance': teamRow['attendance'], 'salary':teamRow['salary']}
+            team_dict.append(selected_team)
     team_cursor.close()
+    print(team_dict)
     return jsonify(team_dict)
-
 
 if __name__ == "__main__":
     app.run(debug=True)

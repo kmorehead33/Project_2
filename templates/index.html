@@ -1,64 +1,73 @@
 <!DOCTYPE html>
 <html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+        <title>Baseball Dashboard</title>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
+    </head>
+    <body>
+        <style>
+            .bar {
+                fill: #71eeb8;
+            }
 
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>Baseball Dashboard</title>
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-</head>
+            .bar:hover {
+                fill: slateblue;
+            }
 
-<body>
+            .axis-x path {
+                display: none;
+            }
 
-  <div class="container">
-    <div class="row">
-      <div class="col-md-12 jumbotron text-center">
-        <h1>MLB Salary Comparison</h1>
-        <p>Use salary data to compare success of different teams</p>
-      </div>
-    </div>
-    <div class="row">
-      <div class="col-md-2">
-        <div class="well">
-          <h5>SELECT Team:</h5>
-          <div id="teamDropdown">selector goes here</div>
-          <h5>SELECT Year:</h5>
-          <div id="yearDropdown">selector goes here</div>
+            .axis text {
+                font-weight: bold;
+            }
+        </style>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 jumbotron text-center">
+                    <h1>MLB Salary Comparison</h1>
+                    <p>Use salary data to compare success of different teams</p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-2">
+                    <div class="well">
+                        <h5>SELECT Team:</h5>
+                        <div id="teamDropdown">selector goes here</div>
+                        <h5>SELECT Year:</h5>
+                        <div id="yearDropdown">selector goes here</div>
+                    </div>
+                    <div class="panel panel-primary">
+                        <div class="panel-heading">
+                            <h3 class="panel-title">Team Data</h3>
+                        </div>
+                        <div id="team-data" class="panel-body"></div>
+                    </div>
+                </div>
+                <div class="col-md-5">
+                    <svg id="team-salary" height=500 width=1000 ></svg>
+                </div>
+                <div class="col-md-5">
+                    <div id="win-salary"></div>
+                </div>
+            </div>
         </div>
-        <div class="panel panel-primary">
-          <div class="panel-heading">
-            <h3 class="panel-title">Team Data</h3>
-          </div>
-          <div id="team-data" class="panel-body"></div>
+        <div class="row">
+            <div class="col-md-5">
+                <div id="attendance-salary"></div>
+            </div>
+            <div class="col-md-5">
+                <div id="dollar-per-win"></div>
+            </div>
         </div>
-      </div>
-      <div class="col-md-5">
-        <div id="team-salary"></div>
-      </div>
-      <div class="col-md-5">
-        <div id="win-salary"></div>
-      </div>
-    </div>
-  </div>
-  <div class="row">
-    <div class="col-md-5">
-      <div id="attendance-salary"></div>
-    </div>
-    <div class="col-md-5">
-        <div id=dollar-per-win></div>
-      </div>
-  </div>
 
-  <script src="https://cdn.plot.ly/plotly-1.31.2.min.js"></script>
-  <script src="https://d3js.org/d3.v5.min.js"></script>
-  <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
-    <script
-    src="https://code.jquery.com/jquery-3.4.1.min.js"
-    integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
-    crossorigin="anonymous"></script>
-  <script src="../static/app.js"></script>
-
-</body>
-
+        <script src="https://d3js.org/d3.v5.min.js"></script>
+        <script src="https://cdn.plot.ly/plotly-1.31.2.min.js"></script>
+        <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+        <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+        <script src="../static/app.js"></script>
+    </body>
 </html>
