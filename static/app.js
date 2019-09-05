@@ -39,4 +39,31 @@ function myRedraw() {
     var team =  $( "#teamSelector" ).val();
     var year = $( "#yearSelector" ).val();
     alert(`redrawing... ${team} ${year}`)
+
+function buildTeamData(team, year) {
+
+    // @TODO: Complete the following function that builds the metadata panel
+    
+    // Use `d3.json` to fetch the metadata for a sample
+var teamDataUrl = `/team/${team}/year/${year}`
+// Use d3 to select the panel with id of `#sample-metadata`
+d3.json(teamDataUrl).then(function(team, year){
+var teamData = d3.select("#team-data");
+
+// Use `.html("") to clear any existing metadata
+teamData.html("");
+        // Use `Object.entries` to add each key and value pair to the panel
+        // Hint: Inside the loop, you will need to use d3 to append new
+        // tags for each key-value in the metadata.
+Object.entries(team, year).forEach(function([key,value]){
+    var row = teamData.append("p");
+    row.text(`${key}:${value}`);
+    console.log(JSON.stringify(`${key}:${value}`))
+
+    });
+    });
 }
+
+buildTeamData(team, year)
+}
+
