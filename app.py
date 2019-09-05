@@ -33,17 +33,28 @@ def names():
 
 @app.route("/year/<year>")
 def years(year):
-    print(year)
     db = client.baseball_db
     collection = db.stats
     year_cursor = collection.find({"year": int(year)})
     year_dict = []
     for year in year_cursor:
-        print(year)
         selected_year = {'year': year['year'], 'team':year['team'], 'wins':year['wins'], 'losses':year['losses'], 'championship': year['championship'], 'attendance': year['attendance'], 'salary':year['salary']}
         year_dict.append(selected_year)
     year_cursor.close()
     return jsonify(year_dict)
+
+@app.route("/team/<team>")
+def teams(team):
+    db = client.baseball_db
+    collection = db.stats
+    team_cursor = collection.find({"team": team})
+    team_dict = []
+    for team in team_cursor:
+        selected_team = {'year': team['year'], 'team':team['team'], 'wins':team['wins'], 'losses':team['losses'], 'championship': team['championship'], 'attendance': team['attendance'], 'salary':team['salary']}
+        team_dict.append(selected_team)
+    team_cursor.close()
+    return jsonify(team_dict)
+
 
 if __name__ == "__main__":
     app.run(debug=True)
