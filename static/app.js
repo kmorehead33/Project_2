@@ -21,6 +21,8 @@ function createTeamDropdown() {
     }
     selector += '</select>';
     $('#teamDropdown').html(selector);
+
+
 }
 function createYearDropdown() {
     var uniqueYears = {};
