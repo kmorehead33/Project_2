@@ -81,7 +81,7 @@ function drawBarChart(team, year) {
     var width = svgWidth - margin.left - margin.right;
     var height = svgHeight - margin.top - margin.bottom;
 
-
+    document.getElementById("team-salary").innerHTML = "";
     var svg = d3.select("#team-salary")
         .append("svg")
         .attr("height", svgHeight)
@@ -169,7 +169,7 @@ function drawWinScatter(team, year) {
 
     var width = svgWidth - margin.left - margin.right;
     var height = svgHeight - margin.top - margin.bottom;
-
+    document.getElementById("win-salary").innerHTML = "";
     var svg = d3.select("#win-salary")
         .append("svg")
         .attr("width", svgWidth)
@@ -244,6 +244,7 @@ function drawWinAttendance(team, year) {
     var width = svgWidth - margin.left - margin.right;
     var height = svgHeight - margin.top - margin.bottom;
 
+    document.getElementById("attendance-salary").innerHTML = "";
     var svg = d3.select("#attendance-salary")
         .append("svg")
         .attr("width", svgWidth)
