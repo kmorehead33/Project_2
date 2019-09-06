@@ -38,22 +38,18 @@ function createYearDropdown() {
 function myRedraw() {
     var team = $('#teamSelector').val();
     var year = $('#yearSelector').val();
-    //alert(`redrawing... ${team} ${year}`)
+
 
     function buildTeamData(team, year) {
-        // @TODO: Complete the following function that builds the metadata panel
 
-        // Use `d3.json` to fetch the metadata for a sample
         var teamDataUrl = `/team/${team}/year/${year}`;
-        // Use d3 to select the panel with id of `#sample-metadata`
+
         d3.json(teamDataUrl).then(function (teamRow) {
             var teamData = d3.select('#team-data');
             console.log(teamRow);
-            // Use `.html("") to clear any existing metadata
+
             teamData.html('');
-            // Use `Object.entries` to add each key and value pair to the panel
-            // Hint: Inside the loop, you will need to use d3 to append new
-            // tags for each key-value in the metadata.
+
             Object.entries(teamRow[0] ? teamRow[0] : { data: 'not available' }).forEach(function ([key, value]) {
                 var row = teamData.append('p');
                 row.text(`${key}:${value}`);
@@ -73,66 +69,63 @@ function drawBarChart(team, year) {
     var svgWidth = 960;
     var svgHeight = 660;
 
-    // Define the chart's margins as an object
-    var chartMargin = {
+
+    var margin = {
         top: 30,
         right: 30,
         bottom: 30,
         left: 30
     };
 
-    // Define dimensions of the chart area
-    var chartWidth = svgWidth - chartMargin.left - chartMargin.right;
-    var chartHeight = svgHeight - chartMargin.top - chartMargin.bottom;
 
-    // Select body, append SVG area to it, and set the dimensions
+    var width = svgWidth - margin.left - margin.right;
+    var height = svgHeight - margin.top - margin.bottom;
+
+
     var svg = d3.select("#team-salary")
         .append("svg")
         .attr("height", svgHeight)
         .attr("width", svgWidth);
 
-    // Append a group to the SVG area and shift ('translate') it to the right and to the bottom
-    var chartGroup = svg.append("g")
-        .attr("transform", `translate(${chartMargin.left}, ${chartMargin.top})`);
 
-    // Load data from hours-of-tv-watched.csv
+    var chartGroup = svg.append("g")
+        .attr("transform", `translate(${margin.left}, ${margin.top})`);
+
+
     d3.json(teamDataUrl).then(function (teamData) {
         {
 
             console.log(teamData);
 
-            // Cast the hours value to a number for each piece of tvData
+
             teamData.forEach(function (d) {
                 d.salary = +d.salary;
             });
 
-            // Configure a band scale for the horizontal axis with a padding of 0.1 (10%)
+
             var xBandScale = d3.scaleBand()
                 .domain(teamData.map(d => d.team))
-                .range([0, chartWidth])
+                .range([0, width])
                 .padding(0.1);
 
-            // Create a linear scale for the vertical axis.
+
             var yLinearScale = d3.scaleLinear()
                 .domain([0, d3.max(teamData, d => d.salary)])
-                .range([chartHeight, 0]);
+                .range([height, 0]);
 
-            // Create two new functions passing our scales in as arguments
-            // These will be used to create the chart's axes
+
             var bottomAxis = d3.axisBottom(xBandScale);
             var leftAxis = d3.axisLeft(yLinearScale).ticks(10);
 
-            // Append two SVG group elements to the chartGroup area,
-            // and create the bottom and left axes inside of them
+
             chartGroup.append("g")
                 .call(leftAxis);
 
             chartGroup.append("g")
-                .attr("transform", `translate(0, ${chartHeight})`)
+                .attr("transform", `translate(0, ${height})`)
                 .call(bottomAxis);
 
-            // Create one SVG rectangle per piece of tvData
-            // Use the linear and band scales to position each rectangle within the chart
+
             chartGroup.selectAll(".bar")
                 .data(teamData)
                 .enter()
@@ -141,11 +134,24 @@ function drawBarChart(team, year) {
                 .attr("x", d => xBandScale(d.team))
                 .attr("y", d => yLinearScale(d.salary))
                 .attr("width", xBandScale.bandwidth())
-                .attr("height", d => chartHeight - yLinearScale(d.salary));
+                .attr("height", d => height - yLinearScale(d.salary));
+
+            chartGroup.append("text")
+                .attr("transform", "rotate(-90)")
+                .attr("y", 0 - margin.left + 40)
+                .attr("x", 0 - (height / 2))
+                .attr("dy", "1em")
+                .attr("class", "axisText")
+                .text("Salary");
+
+            chartGroup.append("text")
+                .attr("transform", `translate(${width / 2}, ${height + margin.top + 30})`)
+                .attr("class", "axisText")
+                .text("Team");
 
         };
 
-});
+    });
 
 }
 
@@ -212,12 +218,12 @@ function drawWinScatter(team, year) {
                 .attr("x", 0 - (height / 2))
                 .attr("dy", "1em")
                 .attr("class", "axisText")
-                .text("Poverty Rate");
+                .text("Salary");
 
             chartGroup.append("text")
                 .attr("transform", `translate(${width / 2}, ${height + margin.top + 30})`)
                 .attr("class", "axisText")
-                .text("Obesity Rate");
+                .text("Wins");
 
 
         });
@@ -286,12 +292,12 @@ function drawWinAttendance(team, year) {
                 .attr("x", 0 - (height / 2))
                 .attr("dy", "1em")
                 .attr("class", "axisText")
-                .text("Poverty Rate");
+                .text("Salary");
 
             chartGroup.append("text")
                 .attr("transform", `translate(${width / 2}, ${height + margin.top + 30})`)
                 .attr("class", "axisText")
-                .text("Obesity Rate");
+                .text("Attendance");
 
 
         });
