@@ -68,8 +68,8 @@ function myRedraw() {
 
 function drawBarChart(team, year) {
     var teamDataUrl = `/year/${year}`;
-    var svgWidth = 960;
-    var svgHeight = 660;
+    var svgWidth = 900;
+    var svgHeight = 600;
 
 
     var margin = {
@@ -137,6 +137,7 @@ function drawBarChart(team, year) {
                 .attr("y", d => yLinearScale(d.salary))
                 .attr("width", xBandScale.bandwidth())
                 .attr("height", d => height - yLinearScale(d.salary));
+                
 
             chartGroup.append("text")
                 .attr("transform", "rotate(-90)")
@@ -151,6 +152,7 @@ function drawBarChart(team, year) {
                 .attr("class", "axisText")
                 .text("Team");
 
+
         };
 
     });
@@ -159,7 +161,7 @@ function drawBarChart(team, year) {
 
 function drawWinScatter(team, year) {
     var teamDataUrl = `/year/${year}`;
-    var svgWidth = 500;
+    var svgWidth = 600;
     var svgHeight = 500;
 
     var margin = {
@@ -210,9 +212,23 @@ function drawWinScatter(team, year) {
                 .append("circle")
                 .attr("cx", d => xLinearScale(d.wins))
                 .attr("cy", d => yLinearScale(d.salary))
-                .attr("r", "15")
-                .attr("fill", "pink")
-                .attr("opacity", ".5");
+                .attr("r", "5")
+                .attr("fill", "blue")
+                .attr("opacity", ".9");
+
+                var toolTip = d3.tip()
+                .attr("class", "tooltip")
+                .offset([80, -60])
+                .html(function(d) {
+                  return (`${d.team}<br>Salary: ${d.salary}<br>Wins: ${d.wins}`);
+                });
+            
+            circlesGroup.call(toolTip);
+
+            circlesGroup.on("click", function(data) {
+                toolTip.show(data, this);
+              })
+                
 
             chartGroup.append("text")
                 .attr("transform", "rotate(-90)")
@@ -233,7 +249,7 @@ function drawWinScatter(team, year) {
 
 function drawWinAttendance(team, year) {
     var teamDataUrl = `/year/${year}`;
-    var svgWidth = 500;
+    var svgWidth = 750;
     var svgHeight = 500;
 
     var margin = {
@@ -285,9 +301,22 @@ function drawWinAttendance(team, year) {
                 .append("circle")
                 .attr("cx", d => xLinearScale(d.attendance))
                 .attr("cy", d => yLinearScale(d.salary))
-                .attr("r", "15")
-                .attr("fill", "pink")
-                .attr("opacity", ".5");
+                .attr("r", "5")
+                .attr("fill", "blue")
+                .attr("opacity", ".9");
+
+                var toolTip = d3.tip()
+                .attr("class", "tooltip")
+                .offset([80, -60])
+                .html(function(d) {
+                  return (`${d.team}<br>Salary: ${d.salary}<br>Attendance: ${d.attendance}`);
+                });
+            
+            circlesGroup.call(toolTip);
+
+            circlesGroup.on("click", function(data) {
+                toolTip.show(data, this);
+              })
 
             chartGroup.append("text")
                 .attr("transform", "rotate(-90)")
