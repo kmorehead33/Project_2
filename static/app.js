@@ -229,6 +229,9 @@ function drawWinScatter(team, year) {
                 toolTip.show(data, this);
               })
                 
+              .on("mouseout", function(data, index) {
+                toolTip.hide(data);
+              });
 
             chartGroup.append("text")
                 .attr("transform", "rotate(-90)")
@@ -317,6 +320,10 @@ function drawWinAttendance(team, year) {
             circlesGroup.on("click", function(data) {
                 toolTip.show(data, this);
               })
+
+              .on("mouseout", function(data, index) {
+                toolTip.hide(data);
+              });
 
             chartGroup.append("text")
                 .attr("transform", "rotate(-90)")
