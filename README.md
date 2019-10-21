@@ -8,7 +8,7 @@ Analyzing the Impact of Major League Baseball salaries on team succes.
 <li> static: JavaScript code for graphs
 <li> templates: HTML template
 <li> app.py: FLASK app
-<br></br>
+
 
 <b>Project History</b>
 
