@@ -27,3 +27,9 @@ Analyzing the Impact of Major League Baseball salaries on team succes.
 <i>Data Visulization</i>
 <li> Using JavaScript, we created a dynamic webpage that updates graphs displaying success vs. salary for any team in any given year using D3.
 <li> Dropdown display created to show statistics for each team in any given year.
+
+
+<b>Working enviroment</b>
+1. Initialize Mongodb enviroment using "mongod"
+2. Run ETL_Mongo.py to create working Database.
+3. In new terminal, use "python app.py" and follow link for working webpage.
