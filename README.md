@@ -30,6 +30,6 @@ Analyzing the Impact of Major League Baseball salaries on team succes.
 
 
 <b>Working enviroment</b>
-1. Initialize Mongodb enviroment using "mongod"
+1. Initialize Mongodb enviroment using `mongod`
 2. Run ETL_Mongo.py to create working Database.
-3. In new terminal, use "python app.py" and follow link for working webpage.
+3. In new terminal, use `python app.py` and follow link for working webpage.
